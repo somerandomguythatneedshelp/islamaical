@@ -2,17 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --foreground-rgb: rgb(255, 255, 255);
+    --background-start-rgb: 16, 16, 20;
+    --background-end-rgb: 16, 16, 20
   }
 }
 
@@ -30,4 +24,87 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+@font-face {
+  font-family: 'en';
+  src: url('/public/font/lang/urdu/MehrNastaliqWeb.ttf') format('ttf'),
+       url('/public/font/lang/urdu/MehrNastaliqWeb.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.arabic-text-container {
+  margin-left: 100px;
+}
+
+@layer utilities {
+  .font-en {
+    font-family: 'en', sans-serif;
+  }
+}
+
+@font-face {
+  font-family: 'Arabic';
+  src: url('/public/font/lang/arabic/NotoNaskhArabic-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.arabic-text {
+  font-family: 'Arabic', sans-serif;
+  margin-left: 100px;
+}
+
+/* Apply the Arabic font to the Arabic text */
+.arabic-text {
+  font-family: 'Arabic Font', sans-serif;
+}
+
+/* Apply the Surah Names font to the Surah name */
+.surah-name {
+  font-family: 'Surah Names Font', sans-serif;
+}
+
+.surah-separator {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 255), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 255));
+  margin: 50px 0;
+  width: calc(100% - 350px);
+  margin-left: 10px;
+}
+
+/* New styles for Arabic verse text */
+.arabic-verse-container {
+  padding-left: 275px; /* Adjust this value to move text more to the left */
+  padding-right: 100px; /* Add some padding on the right side */
+}
+
+.arabic-verse-text {
+  font-family: 'Arabic Font', sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 1.5;
+  direction: rtl;
+  text-align: justify; /* This will help distribute the text evenly */
+  text-align-last: right; /* Ensures the last line is right-aligned */
+}
+
+.english-verse-container {
+  padding-left: 15px;
+  padding-right: 300px;
+}
+
+.english-verse-text {
+  font-family: Arial, sans-serif; /* You can change this to your preferred English font */
+  font-size: 1.25rem; /* Adjust size as needed */
+  line-height: 1.6;
+  text-align: justify;
+  color: #ffffff; 
+}
+
+.verse-counter {
+  font-size: large;
 }
