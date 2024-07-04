@@ -52,6 +52,10 @@ const QuranVerseClient: React.FC<QuranVerseProps> = ({ verses, surahNumber, sura
 
 
   return (
+    
+    <div className="container mx-auto">
+
+
     <div className="px-12 pt-16 text-white relative">
 
 <div className="
@@ -138,6 +142,7 @@ relative top-0 right-0 mr-6 mt-6 text-white hover:bg-gray-500 rounded-lg w-12 h-
           </React.Fragment>
         ))}
       </div>
+    </div>
     </div>
   );
 };
