@@ -3,6 +3,7 @@ import Box from './components/Box';
 import NamazIMG from './Images/namaz.png';
 import QuranIMG from './Images/Quran.png';
 import Link from 'next/link';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export default function Home() {
 
@@ -24,6 +25,7 @@ export default function Home() {
           />
         </Link>
       </div>
+      <SpeedInsights/>
     </main>
   );
 }
