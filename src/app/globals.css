@@ -46,6 +46,27 @@ body {
 }
 
 @font-face {
+  font-family: "UthmanicHafs";
+  src: local("KFGQPC HAFS Uthmanic Script"),
+    url("/fonts/quran/hafs/uthmanic_hafs/UthmanicHafs1Ver18.woff2")
+      format("woff2"),
+    url("/fonts/quran/hafs/uthmanic_hafs/UthmanicHafs1Ver18.ttf")
+      format("truetype");
+  font-display: swap;
+}
+
+
+@font-face {
+  font-family: "surahnames";
+  src: url("/fonts/quran/surah-names/v1/sura_names.woff2"),
+    url("/fonts/quran/quran/surah-names/v1/sura_names.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+@font-face {
   font-family: 'Arabic';
   src: url('/public/font/lang/arabic/NotoNaskhArabic-Regular.ttf') format('truetype');
   font-weight: normal;
@@ -72,25 +93,25 @@ body {
   height: 1px;
   background-image: linear-gradient(to right, rgba(255, 255, 255, 255), rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 255));
   margin: 50px 0;
-  width: calc(100% - 350px);
-  margin-left: 10px;
+  width: calc(100% - 50px);
 }
 
 /* New styles for Arabic verse text */
 .arabic-verse-container {
   padding-left: 275px; /* Adjust this value to move text more to the left */
-  padding-right: 100px; /* Add some padding on the right side */
+  padding-right: -300px; /* Add some padding on the right side */
 }
 
 .arabic-verse-text {
-  font-family: 'Arabic Font', sans-serif;
+  font-family: "UthmanicHafs";
   font-size: 2.5rem;
-  font-weight: bold;
   line-height: 1.5;
   direction: rtl;
-  text-align: justify; /* This will help distribute the text evenly */
-  text-align-last: right; /* Ensures the last line is right-aligned */
+  text-align: justify;
+  text-align-last: right;
+  margin-right: -190px;
 }
+
 
 .english-verse-container {
   padding-left: 15px;
