@@ -11,15 +11,17 @@ interface BoxProps {
 
 const Box: React.FC<BoxProps> = ({ imageSource, imageAlt, text, href }) => {
   const content = (
-    <div className="relative w-32 h-32">
-    <Image
-      src={imageSource}
-      alt={imageAlt}
-      fill
-      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-      priority
-    />
-  </div>
+    <div className="flex flex-col items-center bg-white-50 border p-4 rounded-lg hover:bg-white hover:text-black transition-colors duration-200 text-gray-100">
+      <div className="relative w-32 h-32">
+        <Image
+          src={imageSource}
+          alt={imageAlt}
+          fill
+          className="object-contain"
+        />
+      </div>
+      <p className="mt-2 text-center">{text}</p>
+    </div>
   );
 
   if (href) {
