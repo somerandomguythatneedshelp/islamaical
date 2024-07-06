@@ -1,6 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { FaRegBookmark, FaBookmark } from 'react-icons/fa';
+import Cookies from 'js-cookie';
+import BookmarkModal from '@/app/components/BookmarkModal';
 
 interface QuranVerseProps {
   verses: any[];
@@ -15,8 +19,37 @@ interface QuranVerseProps {
 const QuranVerseClient: React.FC<QuranVerseProps> = ({ verses, surahNumber, surahName, initialLanguage }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState(initialLanguage);
+  const [bookmarkedVerses, setBookmarkedVerses] = useState<string[]>([]);
+  const [showBookmarkModal, setShowBookmarkModal] = useState(false);
 
+  // useEffect(() => {
+  //   const bookmarkedVersesFromCookie = Cookies.get('bookmarkedVerses');
+  //   console.log('bookmarkedVersesFromCookie:', bookmarkedVersesFromCookie);
+  //   if (bookmarkedVersesFromCookie) {
+  //     try {
+  //       const parsedBookmarkedVerses = JSON.parse(bookmarkedVersesFromCookie);
+  //       setBookmarkedVerses(parsedBookmarkedVerses);
+  //       setShowBookmarkModal(true);
+  //     } catch (error) {
+  //       console.error('Error parsing bookmarked verses from cookie:', error);
+  //       // Handle the error, e.g., clear the cookie or set a default value for bookmarkedVerses
+  //       Cookies.remove('bookmarkedVerses');
+  //       setBookmarkedVerses([]);
+  //     }
+  //   }
+  // }, []);
+  
+  
+  
 
+  const handleCloseBookmarkModal = () => {
+    setShowBookmarkModal(false);
+  };
+
+  const formatSurahNumber = (surahNumber: number): string => {
+    return surahNumber.toString().padStart(3, '0');
+  };
+  
   useEffect(() => {
     const getInitialLanguage = () => {
       if (typeof window !== 'undefined') {
@@ -30,6 +63,34 @@ const QuranVerseClient: React.FC<QuranVerseProps> = ({ verses, surahNumber, sura
   }, []);
 
 
+
+  const toggleBookmark = (verseId: string) => {
+    setBookmarkedVerses((prevBookmarkedVerses) => {
+      const updatedBookmarkedVerses = prevBookmarkedVerses.includes(verseId)
+        ? prevBookmarkedVerses.filter((id) => id !== verseId)
+        : [...prevBookmarkedVerses, verseId];
+  
+      console.log('updatedBookmarkedVerses:', updatedBookmarkedVerses);
+  
+      Cookies.set('bookmarkedVerses', JSON.stringify(updatedBookmarkedVerses));
+  
+      return updatedBookmarkedVerses;
+    });
+  };
+  
+  
+  
+  
+
+  useEffect(() => {
+    const bookmarkedVersesFromCookie = Cookies.get('bookmarkedVerses');
+    if (bookmarkedVersesFromCookie) {
+      setBookmarkedVerses(JSON.parse(bookmarkedVersesFromCookie));
+    }
+  }, []);
+  
+  
+  
 
   const toggleDropdown = () => {
     setShowDropdown(!showDropdown);
@@ -51,10 +112,33 @@ const QuranVerseClient: React.FC<QuranVerseProps> = ({ verses, surahNumber, sura
   console.log('showDropdown:', showDropdown);
 
 
+
+  const router = useRouter();
+
+  const handleNextSurah = () => {
+    router.push(`/quran/${surahNumber + 1}`);
+  };
+
+  const handlePreviousSurah = () => {
+    router.push(`/quran/${surahNumber - 1}`);
+  };
+
+
+  console.log(surahNumber);
+
+
   return (
     
     <div className="container mx-auto">
-
+{showBookmarkModal && (
+      <>
+        <p>bookmarkedVerses: {JSON.stringify(bookmarkedVerses)}</p>
+        <BookmarkModal
+          bookmarkedVerses={bookmarkedVerses}
+          onClose={handleCloseBookmarkModal}
+        />
+      </>
+    )}
 
     <div className="px-12 pt-16 text-white relative">
 
@@ -96,12 +180,17 @@ relative top-0 right-0 mr-6 mt-6 text-white hover:bg-gray-500 rounded-lg w-12 h-
 
 
       <h1 className="mb-16 text-4xl font-bold text-center">
-        <span className="arabic-text block" style={{
-          fontFamily: 'Surah Names Font, Arabic Font, sans-serif',
-          fontSize: '3rem',
-          marginBottom: '0.5rem'
-        }}>
-          {surahName.arabic} ({surahName.english})
+        <span className="arabic-surahtitle">
+          {formatSurahNumber(surahNumber)}surah <br></br><br></br>
+
+          
+          
+        </span>
+
+        <span>
+
+         
+         ({surahName.english})
         </span>
 
         <span className="justify-center flex mt-10 ml-10" style={{
@@ -116,7 +205,15 @@ relative top-0 right-0 mr-6 mt-6 text-white hover:bg-gray-500 rounded-lg w-12 h-
         {verses.map((verse, index) => (
           <React.Fragment key={verse.id}>
             <div className="mb-2 mt-5 clear-both">
-            <div className="verse-counter text-sm mb-10 ml-10">{surahNumber}:{index + 1}</div>
+            <div className="verse-counter text-sm mb-10 ml-10">{surahNumber}:{index + 1}
+{/* <button
+  className="ml-2 text-gray-500 hover:text-gray-700 transition-colors duration-300"
+  onClick={() => toggleBookmark(verse.id)}
+>
+  <FaBookmark className={bookmarkedVerses.includes(verse.id) ? 'text-yellow-500 hover:text-yellow-700 transition-colors duration-300' : ''} />
+</button> */}
+
+            </div>
               <div className="mb-6 relative text-white" style={{ minHeight: '75px', right: '250px' }}>
                 <div className="w-full arabic-verse-container"> {/* New class added */}
                   <p className="arabic-verse-text"> {/* New class added */}
@@ -141,6 +238,48 @@ relative top-0 right-0 mr-6 mt-6 text-white hover:bg-gray-500 rounded-lg w-12 h-
             )}
           </React.Fragment>
         ))}
+
+              <div className="quran-footer">
+
+              <button onClick={handlePreviousSurah} hidden={surahNumber === 1}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', verticalAlign: 'middle' }}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              style={{ marginRight: '5px', marginBottom: '2px' }}
+            >
+              <path
+                fillRule="evenodd"
+                d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
+              />
+            </svg>
+            Previous Surah
+          </span>
+        </button>
+        {/* <button onClick={handleGoToTop}>Go to Top</button> */}
+        <button onClick={handleNextSurah} hidden={surahNumber === 114}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', verticalAlign: 'middle' }}>
+            Next Surah
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              style={{ marginLeft: '5px', marginBottom: '2px' }}
+            >
+              <path
+                fillRule="evenodd"
+                d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"
+              />
+            </svg>
+          </span>
+        </button>
+
+          </div>
       </div>
     </div>
     </div>

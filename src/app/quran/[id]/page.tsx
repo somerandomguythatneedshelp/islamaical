@@ -28,8 +28,7 @@ export default async function QuranVersePage({ params }: QuranVerseProps) {
     }
 
     const surahName = {
-      arabic: surahInfo.name_arabic,
-      english: surahInfo.name_simple
+      english: surahInfo.translated_name.name, // <-- Full English translation of the surah name
     };
 
     // Fetch all verses for the surah
@@ -66,17 +65,15 @@ export default async function QuranVersePage({ params }: QuranVerseProps) {
         };
       })
     );
-    
 
     const initialLanguage = typeof window !== 'undefined'
-    ? window.localStorage.getItem('selectedLanguage') || 'en'
-    : 'en';
+      ? window.localStorage.getItem('selectedLanguage') || 'en'
+      : 'en';
 
-  return <QuranVerseClient verses={versesWithText} surahNumber={surahNumber} surahName={surahName} initialLanguage={initialLanguage} />;
-  
+    return <QuranVerseClient verses={versesWithText} surahNumber={surahNumber} surahName={surahName} initialLanguage={initialLanguage} />;
   } catch (error) {
     console.error('Error fetching Quran verses:', error);
-    return <div>Error fetching Quran verses</div>;
+    return <div className="text-white">Could not retrieve Quran Verses :/ No internet connection?</div>;
   }
 }
 

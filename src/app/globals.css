@@ -45,6 +45,22 @@ body {
   }
 }
 
+.arabic-surahtitle {
+  font-family: "surahnames";
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "surahnames";
+  src: url("/fonts/quran/surah-names/v1/sura_names.woff2"),
+    url("/fonts/quran/quran/surah-names/v1/sura_names.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @font-face {
   font-family: "UthmanicHafs";
   src: local("KFGQPC HAFS Uthmanic Script"),
@@ -53,6 +69,7 @@ body {
     url("/fonts/quran/hafs/uthmanic_hafs/UthmanicHafs1Ver18.ttf")
       format("truetype");
   font-display: swap;
+  unicode-range: U+0600-06FF;
 }
 
 
@@ -128,4 +145,48 @@ body {
 
 .verse-counter {
   font-size: large;
+}
+
+.quran-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 0;
+  position: sticky;
+  bottom: 0;
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  z-index: 1;
+}
+
+.quran-footer button {
+  background-color: transparent;
+  color: #4e4e4e;
+  border: 1px solid #4e4e4e;
+  padding: 15px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 16px;
+  margin: 0 10px;
+}
+
+.quran-footer button:hover {
+  border: 1px solid #fff;
+  color: #fff;
+}
+
+
+@media (max-width: 768px) {
+  .arabic-verse-text {
+    font-size: 1.5rem;
+  }
+
+  .english-verse-text {
+    font-size: 1rem;
+  }
 }
