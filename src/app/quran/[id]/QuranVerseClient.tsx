@@ -22,6 +22,8 @@ const QuranVerseClient: React.FC<QuranVerseProps> = ({ verses, surahNumber, sura
   const [bookmarkedVerses, setBookmarkedVerses] = useState<string[]>([]);
   const [showBookmarkModal, setShowBookmarkModal] = useState(false);
 
+  const router = useRouter();
+
   // useEffect(() => {
   //   const bookmarkedVersesFromCookie = Cookies.get('bookmarkedVerses');
   //   console.log('bookmarkedVersesFromCookie:', bookmarkedVersesFromCookie);
@@ -110,10 +112,6 @@ const QuranVerseClient: React.FC<QuranVerseProps> = ({ verses, surahNumber, sura
   }
 
   console.log('showDropdown:', showDropdown);
-
-
-
-  const router = useRouter();
 
   const handleNextSurah = () => {
     router.push(`/quran/${surahNumber + 1}`);
