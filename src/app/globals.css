@@ -28,8 +28,8 @@ body {
 
 @font-face {
   font-family: 'en';
-  src: url('/public/font/lang/urdu/MehrNastaliqWeb.ttf') format('ttf'),
-       url('/public/font/lang/urdu/MehrNastaliqWeb.ttf') format('ttf');
+  src: url('/public/fonts/lang/urdu/MehrNastaliqWeb.ttf') format('ttf'),
+       url('/public/fonts/lang/urdu/MehrNastaliqWeb.ttf') format('ttf');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -85,7 +85,7 @@ body {
 
 @font-face {
   font-family: 'Arabic';
-  src: url('/public/font/lang/arabic/NotoNaskhArabic-Regular.ttf') format('truetype');
+  src: url('/public/fonts/lang/arabic/NotoNaskhArabic-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -95,12 +95,12 @@ body {
   margin-left: 100px;
 }
 
-/* Apply the Arabic font to the Arabic text */
+/* Apply the Arabic fonts to the Arabic text */
 .arabic-text {
   font-family: 'Arabic Font', sans-serif;
 }
 
-/* Apply the Surah Names font to the Surah name */
+/* Apply the Surah Names fonts to the Surah name */
 .surah-name {
   font-family: 'Surah Names Font', sans-serif;
 }
@@ -136,7 +136,7 @@ body {
 }
 
 .english-verse-text {
-  font-family: Arial, sans-serif; /* You can change this to your preferred English font */
+  font-family: Arial, sans-serif; /* You can change this to your preferred English fonts */
   font-size: 1.25rem; /* Adjust size as needed */
   line-height: 1.6;
   text-align: justify;
